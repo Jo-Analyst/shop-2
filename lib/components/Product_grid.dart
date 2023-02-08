@@ -1,0 +1,36 @@
+// ignore_for_file: file_names, must_be_immutable, prefer_const_constructors
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/product_list.dart';
+import '../models/product.dart';
+import 'product_grid_item.dart';
+
+class ProductGrid extends StatelessWidget {
+  bool showFavoriteOnly;
+  ProductGrid(this.showFavoriteOnly, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = Provider.of<ProductList>(context);
+    final List<Product> loadedProducts =
+        showFavoriteOnly ? provider.favoriteItems : provider.items;
+
+    return GridView.builder(
+      padding: const EdgeInsets.all(10),
+      itemCount: loadedProducts.length,
+      itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
+        key: ValueKey(loadedProducts[index]),
+        value: loadedProducts[index],
+        child: const ProductGridItem(),
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+    );
+  }
+}
