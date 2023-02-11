@@ -39,6 +39,12 @@ class _ProductFormPageState extends State<ProductFormPage> {
   }
 
   void _submitForm() {
+    final isValid = _formKey.currentState?.validate() ?? false;
+
+    if (!isValid) {
+      return;
+    }
+
     _formKey.currentState?.save();
     final newProduct = Product(
       id: Random().nextDouble().toString(),
@@ -73,6 +79,18 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 // },
                 textInputAction: TextInputAction.next,
                 onSaved: (name) => _formData['name'] = name ?? '',
+                validator: (_name) {
+                  String name = _name ?? "";
+
+                  if (name.trim().isEmpty) {
+                    return 'Nome é obrigatório.';
+                  }
+                  if (name.trim().length < 3) {
+                    return 'Nome precisa no mínimo de três letras.';
+                  }
+
+                  return null;
+                },
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: "Preço"),
