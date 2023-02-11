@@ -79,8 +79,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 // },
                 textInputAction: TextInputAction.next,
                 onSaved: (name) => _formData['name'] = name ?? '',
-                validator: (_name) {
-                  String name = _name ?? "";
+                validator: (nameField) {
+                  String name = nameField ?? "";
 
                   if (name.trim().isEmpty) {
                     return 'Nome é obrigatório.';
