@@ -124,8 +124,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 },
               ),
               TextFormField(
-                initialValue: NumberFormat("#.00", "pt-BR")
-                    .format(_formData['price'] as double),
+                initialValue: _formData['price']?.toString(),
                 decoration: const InputDecoration(labelText: "Preço"),
                 focusNode: _priceFocus,
                 textInputAction: TextInputAction.next,
