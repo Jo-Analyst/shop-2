@@ -21,7 +21,7 @@ class ProductList with ChangeNotifier {
       price: data['price'] as double,
       imageUrl: data['imageUrl'] as String,
     );
-    
+
     if (hasId) {
       updateProduct(product);
     } else {
@@ -39,7 +39,17 @@ class ProductList with ChangeNotifier {
 
     if (index >= 0) {
       _items[index] = product;
+      notifyListeners();
     }
-    notifyListeners();
+  }
+
+  void removeProduct(Product product) {
+    int index = _items.indexWhere((p) => p.id == product.id);
+
+    if (index >= 0) {
+      _items.removeAt(index);
+      // _items.removeWhere((p) => p.id == product.id);
+      notifyListeners();
+    }
   }
 }
