@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/models/product_list.dart';
@@ -123,7 +124,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 },
               ),
               TextFormField(
-                initialValue: _formData['price']?.toString(),
+                initialValue: NumberFormat("#.00", "pt-BR")
+                    .format(_formData['price'] as double),
                 decoration: const InputDecoration(labelText: "Preço"),
                 focusNode: _priceFocus,
                 textInputAction: TextInputAction.next,
